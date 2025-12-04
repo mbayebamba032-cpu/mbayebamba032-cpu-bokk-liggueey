@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>BokkLigguéey – Client</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="phone">
+    <header>
+      <div class="title">BokkLigguéey</div>
+      <div class="tagline">Espace client</div>
+    </header>
+    <main>
+      <div class="topbar">
+        <div class="userinfo" id="userinfo"></div>
+        <div class="logout-link" onclick="logout()">Se déconnecter</div>
+      </div>
+
+      <h1>Rechercher un professionnel</h1>
+
+      <div class="search">
+        <input type="text" placeholder="Rechercher un métier ou un nom… (démo)">
+      </div>
+
+      <h2>Catégories populaires</h2>
+      <div class="chips">
+        <span class="chip">Maçon</span>
+        <span class="chip">Plombier</span>
+        <span class="chip">Électricien</span>
+        <span class="chip">Coiffeur</span>
+        <span class="chip">Mécanicien</span>
+      </div>
+
+      <h2>Professionnels recommandés</h2>
+
+      <div class="card">
+        <div class="name">Cheikh Ndiaye</div>
+        <div class="meta">Maçon • Dakar – Parcelles Assainies</div>
+        <div class="rating">★ 4,8 (23 avis)</div>
+        <a href="profil_cheikh.html" class="link">Voir le profil</a>
+      </div>
+
+      <div class="card">
+        <div class="name">Mamadou Diop</div>
+        <div class="meta">Plombier • Dakar – Pikine</div>
+        <div class="rating">★ 4,5 (17 avis)</div>
+        <a href="profil_mamadou.html" class="link">Voir le profil</a>
+      </div>
+
+      <div class="card">
+        <div class="name">Baye Modou Kâ</div>
+        <div class="meta">Maçon • Dakar – Bambilor</div>
+        <div class="rating">★ 4,7 (18 avis)</div>
+        <a href="profil_baye.html" class="link">Voir le profil</a>
+      </div>
+    </main>
+  </div>
+
+<script>
+function requireLogin() {
+  const user = JSON.parse(localStorage.getItem("loggedUser") || "null");
+  if (!user || user.type !== "client") {
+    window.location.href = "login.html";
+    return;
+  }
+  document.getElementById("userinfo").innerText =
+    "Connecté : " + user.name + " (" + user.email + ")";
+}
+
+function logout() {
+  localStorage.removeItem("loggedUser");
+  window.location.href = "index.html";
+}
+
+requireLogin();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Connexion – BokkLigguéey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="phone">
+    <header>
+      <div class="title">BokkLigguéey</div>
+      <div class="tagline">Connexion</div>
+    </header>
+
+    <main>
+      <a href="index.html" class="back">← Accueil</a>
+      <h1>Connexion</h1>
+
+      <form onsubmit="login(event)">
+        <label>Email
+          <input type="email" id="email" required>
+        </label>
+
+        <label>Mot de passe
+          <input type="password" id="password" required>
+        </label>
+
+        <button type="submit" class="btn btn-primary btn-full">Se connecter</button>
+      </form>
+
+      <p class="small" style="margin-top:10px;">
+        Pas de compte ?
+        <a href="register.html">Créer un compte</a>
+      </p>
+
+      <p id="error" class="error"></p>
+    </main>
+  </div>
+
+<script>
+function login(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (!user) {
+    document.getElementById("error").innerText = "Email ou mot de passe incorrect.";
+    return;
+  }
+
+  localStorage.setItem("loggedUser", JSON.stringify(user));
+
+  if (user.type === "client") {
+    window.location.href = "client.html";
+  } else {
+    window.location.href = "pro.html";
+  }
+}
+</script>
+
+</body>
+</html>

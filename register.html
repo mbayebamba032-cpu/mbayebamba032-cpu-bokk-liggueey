@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Créer un compte – BokkLigguéey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="phone">
+    <header>
+      <div class="title">BokkLigguéey</div>
+      <div class="tagline">Créer un compte</div>
+    </header>
+
+    <main>
+      <a href="index.html" class="back">← Accueil</a>
+      <h1>Créer un compte</h1>
+
+      <form onsubmit="registerUser(event)">
+        <label>Nom complet
+          <input type="text" id="name" required>
+        </label>
+
+        <label>Email
+          <input type="email" id="email" required>
+        </label>
+
+        <label>Mot de passe
+          <input type="password" id="password" required>
+        </label>
+
+        <label>Type de compte
+          <select id="type">
+            <option value="client">Client</option>
+            <option value="pro">Professionnel</option>
+          </select>
+        </label>
+
+        <button type="submit" class="btn btn-danger btn-full">Créer le compte</button>
+      </form>
+
+      <p class="small" style="margin-top:10px;">
+        Déjà un compte ?
+        <a href="login.html">Se connecter</a>
+      </p>
+
+      <p id="success" class="success"></p>
+    </main>
+  </div>
+
+<script>
+function registerUser(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const type = document.getElementById("type").value;
+
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  if (users.some(u => u.email === email)) {
+    document.getElementById("success").className = "error";
+    document.getElementById("success").innerText = "Cet email existe déjà.";
+    return;
+  }
+
+  users.push({ name, email, password, type });
+  localStorage.setItem("users", JSON.stringify(users));
+
+  document.getElementById("success").className = "success";
+  document.getElementById("success").innerText =
+    "Compte créé avec succès ! Vous pouvez maintenant vous connecter.";
+}
+</script>
+
+</body>
+</html>
